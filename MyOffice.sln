@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACTk.Runtime", "ACTk.Runtime.csproj", "{cc87e5a6-6db7-bf31-6d6d-d5278aefcb44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACTk.Editor", "ACTk.Editor.csproj", "{ac24030d-f1eb-afc7-bb1e-42a43cc16771}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{64399de7-cf0d-8f41-24bd-695fa254dc44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACTk.Examples.Runtime", "ACTk.Examples.Runtime.csproj", "{9f01cfd6-b797-1e18-62a8-dbe901e78414}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACTk.Examples.Genuine.Runtime", "ACTk.Examples.Genuine.Runtime.csproj", "{86b53ec7-05f4-4f9c-5067-0ee6bac55df2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACTk.Examples.Genuine.Editor", "ACTk.Examples.Genuine.Editor.csproj", "{10a1b4ca-b02a-80a1-42cd-847e3a83123e}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{1d2d4a8d-d8c2-ad39-d654-0505213d4b91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sirenix.OdinInspector.Modules.UnityMathematics", "Sirenix.OdinInspector.Modules.UnityMathematics.csproj", "{b94d9196-56ea-9508-ca7d-9b8fe564cb81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{8fba92d8-0b58-bb5d-f920-60d016c4b9a6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{06448eae-be7c-61da-f7a8-90a2dca91584}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{cc87e5a6-6db7-bf31-6d6d-d5278aefcb44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{cc87e5a6-6db7-bf31-6d6d-d5278aefcb44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ac24030d-f1eb-afc7-bb1e-42a43cc16771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ac24030d-f1eb-afc7-bb1e-42a43cc16771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64399de7-cf0d-8f41-24bd-695fa254dc44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64399de7-cf0d-8f41-24bd-695fa254dc44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9f01cfd6-b797-1e18-62a8-dbe901e78414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9f01cfd6-b797-1e18-62a8-dbe901e78414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86b53ec7-05f4-4f9c-5067-0ee6bac55df2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86b53ec7-05f4-4f9c-5067-0ee6bac55df2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10a1b4ca-b02a-80a1-42cd-847e3a83123e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10a1b4ca-b02a-80a1-42cd-847e3a83123e}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1d2d4a8d-d8c2-ad39-d654-0505213d4b91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1d2d4a8d-d8c2-ad39-d654-0505213d4b91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{b94d9196-56ea-9508-ca7d-9b8fe564cb81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{b94d9196-56ea-9508-ca7d-9b8fe564cb81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8fba92d8-0b58-bb5d-f920-60d016c4b9a6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8fba92d8-0b58-bb5d-f920-60d016c4b9a6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06448eae-be7c-61da-f7a8-90a2dca91584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06448eae-be7c-61da-f7a8-90a2dca91584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
