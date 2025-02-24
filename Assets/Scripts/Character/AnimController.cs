@@ -1,7 +1,7 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 
 namespace Character
 {
@@ -11,6 +11,7 @@ namespace Character
         [SerializeField] private Animator animator;
 
         private Sequence _mySequence;
+        private UnityAction _actionCallBack;
         
         [Button]
         public void PlayAnim(AnimLayer layer, int animIndex)
@@ -21,15 +22,34 @@ namespace Character
         
         void SetAnimWeight(AnimLayer layer)
         {
-            
+            _mySequence?.Kill();
+            _mySequence = DOTween.Sequence();
             // Set all layer weights to 0
             for (int i = 0; i < animator.layerCount; i++)
             {
-                animator.SetLayerWeight(i, 0);
+                if ((int)layer == i)
+                    continue;
+                int layerIndex = i;
+                _mySequence.Append(DOVirtual.Float(animator.GetLayerWeight(i), 0f, 0.25f, value =>
+                {
+                    animator.SetLayerWeight(layerIndex, value);
+                }));
             }
 
             // Set the specified layer weight to 1
-            animator.SetLayerWeight((int)layer, 1);
+            _mySequence.Append(
+                DOVirtual.Float(animator.GetLayerWeight((int)layer), 1f, 0.25f, value =>
+                {
+                    animator.SetLayerWeight((int)layer, value);
+                })
+            );
+            _mySequence.Play();
+            _mySequence.OnComplete(() =>
+            {
+                _actionCallBack?.Invoke();
+                _actionCallBack = null;
+            });
+           
         }
         
         [Button]
@@ -39,11 +59,19 @@ namespace Character
                 SetAnimWeight(layer);
             animator.SetBool(animName, isPlay);
         }
+        
+        [Button]
+        public void PlayAnim(AnimLayer layer, int animIndex, UnityAction callBack)
+        {
+            _actionCallBack = callBack;
+            SetAnimWeight(layer);
+            animator.SetInteger(AnimIndex, animIndex);
+        }
     }
 
     public enum AnimLayer
     {
-        None=-1,
+        None = -1,
         Idle = 0,
         Move = 1,
         Sit = 2,
