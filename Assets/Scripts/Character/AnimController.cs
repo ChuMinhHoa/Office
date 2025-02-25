@@ -29,11 +29,9 @@ namespace Character
             {
                 if ((int)layer == i)
                     continue;
-                int layerIndex = i;
-                _mySequence.Append(DOVirtual.Float(animator.GetLayerWeight(i), 0f, 0.25f, value =>
-                {
-                    animator.SetLayerWeight(layerIndex, value);
-                }));
+                int layerTemp = i;
+                DOVirtual.Float(animator.GetLayerWeight((int)layerTemp), 0f, 0.25f,
+                    value => animator.SetLayerWeight(layerTemp, value));
             }
 
             // Set the specified layer weight to 1
@@ -48,6 +46,7 @@ namespace Character
             {
                 _actionCallBack?.Invoke();
                 _actionCallBack = null;
+                animator.SetInteger(AnimIndex, -1);
             });
            
         }
