@@ -3591,6 +3591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce9c81116413a4448c0b7d1e67a8b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationVelocityX: 0
+  targetRotationY: 180
+  currentRotationY: 0
+  rotationSpeed: 15
+  smoothTime: 0.25
 --- !u!137 &137023161499672190
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
