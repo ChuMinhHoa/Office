@@ -1,10 +1,10 @@
+using _Game.Scripts.Etc;
 using DG.Tweening;
-using Etc;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AnimationController
+namespace _Game.Scripts.AnimationController
 {
     public abstract class BaseAnimController<TAnimLayer> : MonoBehaviour
     {

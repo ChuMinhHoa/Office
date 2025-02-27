@@ -1,6 +1,4 @@
-using Etc;
-
-namespace AnimationController
+namespace _Game.Scripts.AnimationController
 {
     public class CharacterAnimController : BaseAnimController<AnimPlayerLayer>
     {

@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AnimationController;
-using Etc;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

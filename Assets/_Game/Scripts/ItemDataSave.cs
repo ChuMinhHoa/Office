@@ -1,24 +1,29 @@
 using System.Collections.Generic;
+using _Game.Scripts;
 using MemoryPack;
 using UnityEngine;
 
-[System.Serializable]
-[MemoryPackable]
-public partial class ItemDataSave
+namespace _Game.Scripts
 {
-    //public static ItemDataSave Instance => DataManager.Instance.InGameData.ItemDataSave;
-    public List<ItemData> itemDataSaves = new();
+    [System.Serializable]
+    [MemoryPackable]
+    public partial class ItemDataSave
+    {
+        //public static ItemDataSave Instance => DataManager.Instance.InGameData.ItemDataSave;
+        public List<ItemData> itemDataSaves = new();
+    }
+
+    [System.Serializable]
+    [MemoryPackable]
+    public partial class ItemData
+    {
+        [MemoryPackOrder(0)]
+        [field: SerializeField] public _Game.Scripts.Etc.ReactiveValue<int> ID = new();
+        [MemoryPackOrder(1)]
+        [field: SerializeField] public _Game.Scripts.Etc.ReactiveValue<int> Bite = new();
+    }
 }
 
-[System.Serializable]
-[MemoryPackable]
-public partial class ItemData
-{
-    [MemoryPackOrder(0)]
-    [field: SerializeField] public ReactiveValue<int> ID = new();
-    [MemoryPackOrder(1)]
-    [field: SerializeField] public ReactiveValue<int> Bite = new();
-}
 
 public partial class InGameData
 {

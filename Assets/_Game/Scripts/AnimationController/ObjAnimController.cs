@@ -1,7 +1,4 @@
-using Etc;
-using UnityEngine;
-
-namespace AnimationController
+namespace _Game.Scripts.AnimationController
 {
     public class ObjAnimController : BaseAnimController<AnimObjLayer>
     {

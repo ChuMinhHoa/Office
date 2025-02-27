@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Objects
+namespace _Game.Scripts.Objects
 {
     public interface IObj
     {

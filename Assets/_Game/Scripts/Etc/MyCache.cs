@@ -1,4 +1,4 @@
-namespace Etc
+namespace _Game.Scripts.Etc
 {
     public static class MyCache
     {

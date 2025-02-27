@@ -1,4 +1,4 @@
-namespace Character.StateMachine
+namespace _Game.Scripts.Character.StateMachine
 {
     public class StateMachine<T>
     {
@@ -52,7 +52,7 @@ namespace Character.StateMachine
         public abstract void Exit(T go);
     }
     
-    public class GlobalBotState : State<Character>
+    public class GlobalBotState : State<_Game.Scripts.Character.Character>
     {
         private static GlobalBotState _mInstance;
         public static GlobalBotState Instance
@@ -65,17 +65,17 @@ namespace Character.StateMachine
             }
         }
 
-        public override void Enter(Character go)
+        public override void Enter(_Game.Scripts.Character.Character go)
         {
             
         }
 
-        public override void Execute(Character go)
+        public override void Execute(_Game.Scripts.Character.Character go)
         {
             
         }
 
-        public override void Exit(Character go)
+        public override void Exit(_Game.Scripts.Character.Character go)
         {
             
         }

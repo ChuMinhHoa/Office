@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Objects.ActiveObject
+namespace _Game.Scripts.Objects.ActiveObject
 {
     public interface IInteractObj
     {

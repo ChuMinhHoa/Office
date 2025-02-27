@@ -1,55 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using _Game.Scripts.Patern;
 using CodeStage.AntiCheat.Storage;
 using MemoryPack;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
-public class DataManager : Singleton<DataManager>
+namespace _Game.Scripts.Manager
 {
-    [field: SerializeField] public InGameData InGameData { get; private set; } = new();
-    
-    protected override void Awake()
+    public class DataManager : Singleton<DataManager>
     {
-        base.Awake();
-        LoadData();
-    }
+        [field: SerializeField] public InGameData InGameData { get; private set; } = new();
+    
+        protected override void Awake()
+        {
+            base.Awake();
+            LoadData();
+        }
     
 #if UNITY_EDITOR
-    [Button]
+        [Button]
 #endif
-    public void SaveData()
-    {
-        ObscuredPrefs.Set(GameStaticData.KeyInGameData, MemoryPackSerializer.Serialize(InGameData));
-    }
+        public void SaveData()
+        {
+            ObscuredPrefs.Set(GameStaticData.KeyInGameData, MemoryPackSerializer.Serialize(InGameData));
+        }
     
 #if UNITY_EDITOR
-    [Button]
+        [Button]
 #endif
-    public void LoadData()
-    {
-        InGameData = MemoryPackSerializer.Deserialize<InGameData>(
-            ObscuredPrefs.Get<byte[]>(GameStaticData.KeyInGameData,
-                MemoryPackSerializer.Serialize(new InGameData())));
-    }
+        public void LoadData()
+        {
+            InGameData = MemoryPackSerializer.Deserialize<InGameData>(
+                ObscuredPrefs.Get<byte[]>(GameStaticData.KeyInGameData,
+                    MemoryPackSerializer.Serialize(new InGameData())));
+        }
     
 #if UNITY_EDITOR
-    [Button]
+        [Button]
 #endif
-    public void ResetData()
-    {
-        // Reset the in-memory data
-        InGameData = new InGameData();
+        public void ResetData()
+        {
+            // Reset the in-memory data
+            InGameData = new InGameData();
     
-        // Remove the saved data from ObscuredPrefs
-        ObscuredPrefs.DeleteKey(GameStaticData.KeyInGameData);
+            // Remove the saved data from ObscuredPrefs
+            ObscuredPrefs.DeleteKey(GameStaticData.KeyInGameData);
+        }
+    }
+
+    public static class GameStaticData
+    {
+        public const string KeyInGameData = "InGameData";
     }
 }
 
-public static class GameStaticData
-{
-    public const string KeyInGameData = "InGameData";
-}
 
 [System.Serializable]
 [MemoryPackable]

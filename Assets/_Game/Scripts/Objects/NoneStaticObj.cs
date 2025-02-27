@@ -1,7 +1,7 @@
-using AnimationController;
+using _Game.Scripts.AnimationController;
 using UnityEngine.Serialization;
 
-namespace Objects
+namespace _Game.Scripts.Objects
 {
     public class NoneStaticObj : ObjOffice
     {

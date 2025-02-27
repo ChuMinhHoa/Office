@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace _Game.Scripts.Objects.StaticObject
+namespace _Game.Scripts.Etc
 {
-    public class Table : MonoBehaviour
+    public class DemoAnimation : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

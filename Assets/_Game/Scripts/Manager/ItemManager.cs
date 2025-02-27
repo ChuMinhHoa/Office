@@ -1,29 +1,32 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using _Game.Scripts.Patern;
 using UnityEngine;
 
-public class ItemManager : Singleton<ItemManager>
+namespace _Game.Scripts.Manager
 {
-    public List<ItemData> itemDatas = new();
-
-    private void Start()
+    public class ItemManager : Singleton<ItemManager>
     {
-        InitData();
-    }
+        public List<ItemData> itemDatas = new();
 
-    void InitData()
-    {
-        itemDatas = DataManager.Instance.InGameData.ItemDataSave.itemDataSaves;
-        for (int i = 0; i < itemDatas.Count; i++)
+        private void Start()
         {
-            itemDatas[i].ID.ReactiveProperty.Skip(1).Subscribe(OnChangeID);
+            InitData();
         }
-    }
 
-    void OnChangeID(int id)
-    {
-        Debug.Log($"item change value {id}");
+        void InitData()
+        {
+            itemDatas = DataManager.Instance.InGameData.ItemDataSave.itemDataSaves;
+            for (int i = 0; i < itemDatas.Count; i++)
+            {
+                itemDatas[i].ID.ReactiveProperty.Skip(1).Subscribe(OnChangeID);
+            }
+        }
+
+        void OnChangeID(int id)
+        {
+            Debug.Log($"item change value {id}");
+        }
     }
 }

@@ -1,15 +1,13 @@
-using System;
-
-namespace Objects.ActiveObject
+namespace _Game.Scripts.Objects.ActiveObject
 {
     public class Chair : NoneStaticObj
     {
-        private OpenInteractObj openInteractObj;
+        private OpenInteractObj _openInteractObj;
 
         public override void InitInteract()
         {
-            openInteractObj = new OpenInteractObj();
-            InteractActions.Add(InteractType.Open, openInteractObj.OnInteract);
+            _openInteractObj = new OpenInteractObj();
+            InteractActions.Add(InteractType.Open, _openInteractObj.OnInteract);
         }
     }
 }

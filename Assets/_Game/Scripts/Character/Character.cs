@@ -1,12 +1,10 @@
-using System;
-using AnimationController;
+using _Game.Scripts.AnimationController;
+using _Game.Scripts.Character.StateMachine;
 using UnityEngine;
-using Character.StateMachine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace Character
+namespace _Game.Scripts.Character
 {
     public class Character : MonoBehaviour
     {
