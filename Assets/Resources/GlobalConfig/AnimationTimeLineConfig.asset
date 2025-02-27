@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d6b19ddd25e8c4ea4a94f18a56ba07, type: 3}
+  m_Name: AnimationTimeLineConfig
+  m_EditorClassIdentifier: 
+  animationDataConfigs:
+  - animLayer: 0
+    animData:
+    - id: 0
+      animName: Idle_Breath
+      totalTime: 9.933333
+      animationClips:
+      - {fileID: -203655887218126122, guid: 201f67fd8beff154abadcea8b4e16448, type: 3}
+    - id: 1
+      animName: Idle_Talking
+      totalTime: 3.9333336
+      animationClips:
+      - {fileID: -203655887218126122, guid: 1548bfce197e2a748a6e417745ecefaf, type: 3}
+    - id: 2
+      animName: Idle_Talking_1
+      totalTime: 3.766667
+      animationClips:
+      - {fileID: -203655887218126122, guid: f06c7590dbe948b44bf212fd13e29eec, type: 3}
+    - id: 3
+      animName: Talking Phone Pacing
+      totalTime: 42.233337
+      animationClips:
+      - {fileID: -203655887218126122, guid: 1c1a245acdaf06f4f95900cb6e44d9a2, type: 3}
+  - animLayer: 1
+    animData:
+    - id: 0
+      animName: Walking
+      totalTime: 1.0333334
+      animationClips:
+      - {fileID: -203655887218126122, guid: 8234df0a7e226ca448af4889c50e251a, type: 3}
+  - animLayer: 2
+    animData:
+    - id: 0
+      animName: Sitting Disbe_0
+      totalTime: 4.766667
+      animationClips:
+      - {fileID: -203655887218126122, guid: 51dbb28b2815d3748b126c13d9f1dabd, type: 3}
+    - id: 1
+      animName: Sitting Disbe_1
+      totalTime: 4.166667
+      animationClips:
+      - {fileID: -203655887218126122, guid: f763fbdf280316a45b4c12d895b735bb, type: 3}
+    - id: 2
+      animName: Sitting Idle
+      totalTime: 3.766667
+      animationClips:
+      - {fileID: -203655887218126122, guid: eb6bd5e4534bcca498529a41e7d75ac5, type: 3}
+    - id: 3
+      animName: Sitting Relax
+      totalTime: 0.033333335
+      animationClips:
+      - {fileID: -203655887218126122, guid: 249d1b460afddf541b9381c44cab4a4f, type: 3}
+    - id: 4
+      animName: Sitting Typing
+      totalTime: 16.466667
+      animationClips:
+      - {fileID: -203655887218126122, guid: 185790d5c8b87ee438f02122a90007fe, type: 3}
