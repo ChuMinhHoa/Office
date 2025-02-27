@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using AnimationController;
-using Etc;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "AnimationTimeLineConfig", menuName = "GlobalConfig/AnimationTimeLineConfig")]
 [GlobalConfig("Assets/Resources/GlobalConfig/")]
-public class AnimationTimeLineGlobalConfig : ScriptableObject
+public class AnimationTimeLineGlobalConfig : GlobalConfig<AnimationTimeLineGlobalConfig>
 {
-    public List<AnimationDataConfig> animationDataConfigs = new();
+    [FormerlySerializedAs("animationDataConfigs")] public List<AnimationDataConfig> animationCharacterDataConfigs = new();
    
 #if UNITY_EDITOR
     [Button(50)]
     private void SetupAnimationData()
     {
-        foreach (var anim in animationDataConfigs)
+        foreach (var anim in animationCharacterDataConfigs)
         {
             anim.SetupAnimationData();
         }
@@ -24,7 +24,7 @@ public class AnimationTimeLineGlobalConfig : ScriptableObject
     
     public float GetTimeAnimation<T>(T animPlayerLayer,int animID)
     {
-        foreach (var animationData in animationDataConfigs)
+        foreach (var animationData in animationCharacterDataConfigs)
         {
             if (animationData.animLayer.Equals(animPlayerLayer))
             {
@@ -61,6 +61,7 @@ public class AnimationDataConfig
         {
             if (anim.id == animID)
             {
+                Debug.Log(anim.animName + " " + anim.totalTime);
                 return anim.totalTime;
             }
         }

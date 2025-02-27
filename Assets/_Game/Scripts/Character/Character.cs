@@ -1,4 +1,5 @@
 using System;
+using AnimationController;
 using UnityEngine;
 using Character.StateMachine;
 using UnityEngine.AI;
@@ -14,7 +15,7 @@ namespace Character
 
         public NavMeshAgent cAgent;
         public Transform cTarget;
-        public AnimController cAnimController;
+        public CharacterAnimController cAnimController;
         
         private void Awake()
         {
@@ -40,8 +41,8 @@ namespace Character
         [SerializeField] private float timeIdle;
         public void CharIdleEnter()
         {
-            cAnimController.PlayAnim(AnimLayer.Idle, Random.Range(0, 5));
-            timeIdleSetting = cAnimController.GetCurrentAnimLength();
+            cAnimController.PlayAnim(AnimPlayerLayer.Idle, Random.Range(0, 5));
+            timeIdleSetting = cAnimController.GetCurrentTimeAnimation();
             timeIdle = 0;
         }
         

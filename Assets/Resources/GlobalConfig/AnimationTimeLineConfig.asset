@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d6b19ddd25e8c4ea4a94f18a56ba07, type: 3}
   m_Name: AnimationTimeLineConfig
   m_EditorClassIdentifier: 
-  animationDataConfigs:
+  animationCharacterDataConfigs:
   - animLayer: 0
     animData:
     - id: 0
@@ -31,10 +31,23 @@ MonoBehaviour:
       animationClips:
       - {fileID: -203655887218126122, guid: f06c7590dbe948b44bf212fd13e29eec, type: 3}
     - id: 3
-      animName: Talking Phone Pacing
-      totalTime: 42.233337
+      animName: A_POLY_IDL_PickNose_Enter_Femn
+      totalTime: 5.466667
       animationClips:
-      - {fileID: -203655887218126122, guid: 1c1a245acdaf06f4f95900cb6e44d9a2, type: 3}
+      - {fileID: -1961226190764754398, guid: 10130be2368ce3649bf942e74b57ec70, type: 3}
+      - {fileID: 3965116954967906914, guid: 4e11912433de5a742a1811b253b9c86c, type: 3}
+      - {fileID: 8371910641414327518, guid: 0c8dd7f79c5d62c43a0b5ca0acee91cf, type: 3}
+    - id: 4
+      animName: A_POLY_IDL_UsePhone_OneHand_Typing_Femn
+      totalTime: 3.5333335
+      animationClips:
+      - {fileID: -4594612094576556048, guid: cf31434e1e52e2844a717ea4a3909f56, type: 3}
+      - {fileID: -4594612094576556048, guid: cf31434e1e52e2844a717ea4a3909f56, type: 3}
+    - id: 5
+      animName: A_POLY_IDL_Yawn_Femn
+      totalTime: 3.3000002
+      animationClips:
+      - {fileID: 8733290152163304433, guid: 417975d298c4645458a23518fe424ca4, type: 3}
   - animLayer: 1
     animData:
     - id: 0
