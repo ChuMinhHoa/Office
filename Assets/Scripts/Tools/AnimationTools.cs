@@ -78,4 +78,19 @@ public class AnimationTools : MonoBehaviour
             }
         }
     }
+
+    [BoxGroup("Clear Collider")] public Transform parents;
+    [BoxGroup("Clear Collider"), Button]
+    void ClearCollider()
+    {
+        foreach (Transform child in parents)
+        {
+            Collider[] colliders = child.GetComponentsInChildren<Collider>();
+            foreach (var collider in colliders)
+            {
+                DestroyImmediate(collider);
+            }
+        }
+    }
+
 }

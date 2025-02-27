@@ -2,17 +2,19 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Character
 {
     public class AnimController : MonoBehaviour
     {
+        [SerializeField] private AnimLayer currentLayer = AnimLayer.None;
         private static readonly int AnimIndex = Animator.StringToHash("AnimIndex");
         [SerializeField] private Animator animator;
 
         private Sequence _mySequence;
         private UnityAction _actionCallBack;
-        
+
         [Button]
         public void PlayAnim(AnimLayer layer, int animIndex)
         {
@@ -22,6 +24,7 @@ namespace Character
         
         void SetAnimWeight(AnimLayer layer)
         {
+            currentLayer = layer;
             _mySequence?.Kill();
             _mySequence = DOTween.Sequence();
             // Set all layer weights to 0
@@ -65,6 +68,11 @@ namespace Character
             _actionCallBack = callBack;
             SetAnimWeight(layer);
             animator.SetInteger(AnimIndex, animIndex);
+        }
+
+        public float GetCurrentAnimLength()
+        {
+            return animator.GetCurrentAnimatorClipInfo((int)currentLayer)[0].clip.length;
         }
     }
 
