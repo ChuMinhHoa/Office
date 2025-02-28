@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using _Game.Scripts.ScriptableObject;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.Scripts.Objects
 {
@@ -24,11 +26,31 @@ namespace _Game.Scripts.Objects
         Open,
         Close
     }
-    
+
+    public enum ObjType
+    {
+        None,
+        Table,
+        Chair,
+        PC,
+    }
+
     public class ObjOffice : MonoBehaviour, IObj
     {
-        public ObjStaticType objStaticType;
+        public ObjStaticType staticType;
         public Dictionary<InteractType, Action> InteractActions = new();
+        public ObjConfig objConfig;
+        public ObjType objType;
+        public void Awake()
+        {
+            InitObj();
+            InitInteract();
+        }
+
+        public virtual void InitObj()
+        {
+            objConfig = ObjDataConfig.Instance.GetConfig(objType);
+        }
 
         public void OnInteract(InteractType interactType)
         {
@@ -40,5 +62,6 @@ namespace _Game.Scripts.Objects
 
         public void OnMoveObj() { }
         public virtual void InitInteract() { }
+        public ObjConfig GetObjData() => objConfig;
     }
 }

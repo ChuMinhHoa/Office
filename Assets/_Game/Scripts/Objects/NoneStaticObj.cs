@@ -1,14 +1,26 @@
+using System;
 using _Game.Scripts.AnimationController;
+using _Game.Scripts.ScriptableObject;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace _Game.Scripts.Objects
 {
     public class NoneStaticObj : ObjOffice
     {
-        [FormerlySerializedAs("animController")] public CharacterAnimController characterAnimController;
-        public virtual void PlayAnim(int animIndex, AnimPlayerLayer playerLayer)
+        [SerializeField] private ObjAnimController objAnimController;
+        public AnimCharBObjConfig animData;
+        public Transform trsPointCharStand;
+        public override void InitObj()
         {
-            characterAnimController.PlayAnim(playerLayer, animIndex);
+            base.InitObj();
+            staticType = ObjStaticType.None;
+        }
+
+        public void PlayAnim(AnimCharBObjConfig animTemp)
+        {
+            animData = animTemp;
+            objAnimController.PlayAnim(animData.objLayer, animData.animObjId);
         }
     }
 }

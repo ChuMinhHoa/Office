@@ -41,7 +41,7 @@ namespace _Game.Scripts
     [System.Serializable]
     public class AnimationDataConfig
     {
-        public AnimPlayerLayer animLayer;
+        public AnimCharacterLayer animLayer;
         public List<AnimData> animData = new();
         public void SetupAnimationData()
         {
@@ -63,7 +63,6 @@ namespace _Game.Scripts
             {
                 if (anim.id == animID)
                 {
-                    Debug.Log(anim.animName + " " + anim.totalTime);
                     return anim.totalTime;
                 }
             }

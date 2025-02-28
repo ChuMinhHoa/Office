@@ -1,6 +1,6 @@
 namespace _Game.Scripts.AnimationController
 {
-    public class CharacterAnimController : BaseAnimController<AnimPlayerLayer>
+    public class CharacterAnimController : BaseAnimController<AnimCharacterLayer>
     {
         public override int GetLayerIndex()
         {
@@ -8,7 +8,7 @@ namespace _Game.Scripts.AnimationController
         }
     }
 
-    public enum AnimPlayerLayer
+    public enum AnimCharacterLayer
     {
         None = -1,
         Idle = 0,

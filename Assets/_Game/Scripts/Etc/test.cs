@@ -29,7 +29,7 @@ public class test : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target.position);
         if (distance > agent.stoppingDistance)
         {
-            characterAnimController.PlayAnim(AnimPlayerLayer.Move, 0, CallBack);
+            characterAnimController.PlayAnim(AnimCharacterLayer.Move, 0, CallBack);
             agent.SetDestination(target.position);
         }
         else
@@ -50,7 +50,7 @@ public class test : MonoBehaviour
 
     private void OnAgentMoveDone()
     {
-        characterAnimController.PlayAnim(AnimPlayerLayer.Idle, 0);
+        characterAnimController.PlayAnim(AnimCharacterLayer.Idle, 0);
         onMove = false;
         Patrol();
     }
