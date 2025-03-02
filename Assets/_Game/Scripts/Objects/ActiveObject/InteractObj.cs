@@ -7,7 +7,7 @@ namespace _Game.Scripts.Objects.ActiveObject
         public void OnInteract();
     }
     
-    public class OpenInteractObj : IInteractObj
+    public class ShitDownInteractObj : IInteractObj
     {
         public void OnInteract()
         {

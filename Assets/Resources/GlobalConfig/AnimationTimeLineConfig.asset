@@ -48,6 +48,31 @@ MonoBehaviour:
       totalTime: 3.3000002
       animationClips:
       - {fileID: 8733290152163304433, guid: 417975d298c4645458a23518fe424ca4, type: 3}
+    - id: 6
+      animName: A_POLY_IDL_Stretch_Arms_Femn
+      totalTime: 3.4333334
+      animationClips:
+      - {fileID: -3592733638980784112, guid: 619e7d2d3fdb0014db062eb32b76ca2d, type: 3}
+    - id: 7
+      animName: A_POLY_IDL_Stretch_Calf_Femn
+      totalTime: 5.1000004
+      animationClips:
+      - {fileID: 1045528562129101876, guid: 83b6801a3a2e4354bb11a62c9dfbe37d, type: 3}
+    - id: 8
+      animName: A_POLY_IDL_Stretch_Legs_Femn
+      totalTime: 5.266667
+      animationClips:
+      - {fileID: 3878530487831044976, guid: 45669a5468e8c2b44b656e00a4515db9, type: 3}
+    - id: 9
+      animName: A_POLY_IDL_Stretch_Quad_Femn
+      totalTime: 4.1333337
+      animationClips:
+      - {fileID: 8621670677231515815, guid: 24658fc1d7225644a8b9881b8b650fce, type: 3}
+    - id: 10
+      animName: A_POLY_IDL_Stretch_Shoulders_Femn
+      totalTime: 3.2333336
+      animationClips:
+      - {fileID: -610930619838812658, guid: 797de2fd8d5884b489b51080f2f19020, type: 3}
   - animLayer: 1
     animData:
     - id: 0
@@ -58,27 +83,38 @@ MonoBehaviour:
   - animLayer: 2
     animData:
     - id: 0
-      animName: Sitting Disbe_0
-      totalTime: 4.766667
-      animationClips:
-      - {fileID: -203655887218126122, guid: 51dbb28b2815d3748b126c13d9f1dabd, type: 3}
-    - id: 1
-      animName: Sitting Disbe_1
-      totalTime: 4.166667
-      animationClips:
-      - {fileID: -203655887218126122, guid: f763fbdf280316a45b4c12d895b735bb, type: 3}
-    - id: 2
       animName: Sitting Idle
       totalTime: 3.766667
       animationClips:
       - {fileID: -203655887218126122, guid: eb6bd5e4534bcca498529a41e7d75ac5, type: 3}
-    - id: 3
+    - id: 1
       animName: Sitting Relax
-      totalTime: 0.033333335
+      totalTime: 5
       animationClips:
-      - {fileID: -203655887218126122, guid: 249d1b460afddf541b9381c44cab4a4f, type: 3}
-    - id: 4
+      - {fileID: 7400000, guid: 6a0389719ac62ea4890213d64afb8204, type: 2}
+    - id: 2
       animName: Sitting Typing
       totalTime: 16.466667
       animationClips:
       - {fileID: -203655887218126122, guid: 185790d5c8b87ee438f02122a90007fe, type: 3}
+  animDefines:
+  - layer: 0
+    charState: 2
+    baseAnimIndex: 1
+    totalTimeInBase: 2
+    animIndex: 0100000002000000
+  - layer: 0
+    charState: 1
+    baseAnimIndex: 0
+    totalTimeInBase: 1
+    animIndex: 030000000400000005000000060000000700000009000000080000000a000000
+  - layer: 2
+    charState: 3
+    baseAnimIndex: 2
+    totalTimeInBase: 3
+    animIndex: 00000000
+  - layer: 2
+    charState: 1
+    baseAnimIndex: 1
+    totalTimeInBase: 0
+    animIndex: 

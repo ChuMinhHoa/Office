@@ -17,10 +17,20 @@ namespace _Game.Scripts.Objects
             staticType = ObjStaticType.None;
         }
 
-        public void PlayAnim(AnimCharBObjConfig animTemp)
+        private void PlayAnim()
         {
-            animData = animTemp;
             objAnimController.PlayAnim(animData.objLayer, animData.animObjId);
+        }
+
+        public void OutWork()
+        {
+            objAnimController.PlayAnim(AnimObjLayer.Idle, 2);
+        }
+
+        public void OnWork(AnimCharBObjConfig data)
+        {
+            animData = data;
+            PlayAnim();
         }
     }
 }

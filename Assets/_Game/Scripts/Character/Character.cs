@@ -1,14 +1,12 @@
 using _Game.Scripts.AnimationController;
 using _Game.Scripts.Character.StateMachine;
 using _Game.Scripts.Objects;
-using _Game.Scripts.Objects.ActiveObject;
 using _Game.Scripts.ScriptableObject;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Character
@@ -18,18 +16,19 @@ namespace _Game.Scripts.Character
         public StateMachine<Character> StateMachine => _mStateMachine;
         private StateMachine<Character> _mStateMachine;
 
-        public NavMeshAgent cAgent;
-        public Transform cTarget;
-        public CharacterAnimController cAnimController;
+        [BoxGroup("CONTROLLER")] public NavMeshAgent cAgent;
+        [BoxGroup("CONTROLLER")] public Transform cTarget;
+        [BoxGroup("CONTROLLER")] public CharacterAnimController cAnimController;
+        [BoxGroup("STATUS")] public CharState charState;
 
-        private UnityAction actionMoveCallback;
-        
+        private UnityAction _actionMoveCallback;
+
         private void Awake()
         {
             _mStateMachine = new StateMachine<Character>(this);
             _mStateMachine.SetGlobalState(GlobalBotState.Instance);
             _mStateMachine.SetCurrentState(GlobalBotState.Instance);
-            OnIdle();
+            Relax();
         }
 
         public void Update()
@@ -41,19 +40,23 @@ namespace _Game.Scripts.Character
         {
             StateMachine.ChangeState(newState);
         }
-        
-        [SerializeField] private float timeAnimSetting = 5f;
-        [SerializeField] private float timeAnim;
+
+        [BoxGroup("STATUS")] [SerializeField] private float timeAnimSetting = 5f;
+        [BoxGroup("STATUS")] [SerializeField] private float timeAnim;
+        [BoxGroup("STATUS")] [SerializeField] private int animLoopCount = 0;
+        [BoxGroup("STATUS")] [SerializeField] private int animLoopMax = 0;
+        [BoxGroup("Work on Object")] public NoneStaticObj currentObjWorkOn;
+        [BoxGroup("Work on Object")] public AnimCharBObjConfig animData;
         
         #region Character Idle
+
         public void CharIdleEnter()
         {
-            Debug.Log("Idle Enter");
-            cAnimController.PlayAnim(AnimCharacterLayer.Idle, Random.Range(0, 5));
+            cAnimController.PlayAnim(AnimCharacterLayer.Idle, GetAnimId(cAnimController.currentAnimLayer, charState));
             timeAnimSetting = cAnimController.GetCurrentTimeAnimation();
             timeAnim = 0;
         }
-        
+
         public void CharIdleExecute()
         {
             if (timeAnim < timeAnimSetting)
@@ -66,12 +69,13 @@ namespace _Game.Scripts.Character
 
         public void CharIdleEnd()
         {
-            
+
         }
 
         #endregion
-        
+
         #region Character Move
+
         public void CharMoveEnter()
         {
             if (!cTarget)
@@ -79,54 +83,83 @@ namespace _Game.Scripts.Character
                 OnIdle();
                 return;
             }
+
             var distance = Vector3.Distance(transform.position, cTarget.position);
             if (distance > cAgent.stoppingDistance)
             {
                 cAnimController.PlayAnim(AnimCharacterLayer.Move, 0);
                 cAgent.enabled = true;
                 cAgent.SetDestination(cTarget.position);
-            }else OnIdle();
+            }
+            else OnIdle();
         }
-        
+
         public void CharMoveExecute()
         {
             if (CheckMoveDone())
             {
-                actionMoveCallback?.Invoke();
-                if (actionMoveCallback == null)
+                _actionMoveCallback?.Invoke();
+                if (_actionMoveCallback == null)
                     OnIdle();
             }
         }
 
         public void CharMoveEnd()
         {
-            
+
+        }
+        
+        private bool CheckMoveDone()
+        {
+            if (!cAgent.enabled) return false;
+            return cAgent.remainingDistance <= cAgent.stoppingDistance;
+        }
+        
+        [Button]
+        public void MoveToObjAndWork(NoneStaticObj obj)
+        {
+            currentObjWorkOn = obj;
+            MoveTarget(currentObjWorkOn.trsPointCharStand, OnObjWork);
+        }
+        
+        private void MoveTarget(Transform target, UnityAction actionCallBack = null)
+        {
+            cTarget = target;
+            if (actionCallBack != null)
+                SetActionCallback(actionCallBack);
+            ChangeState(CharMoveState.Instance);
+        }
+        
+        private void SetActionCallback(UnityAction callback)
+        {
+            _actionMoveCallback = callback;
         }
         #endregion
+       
+        #region Work on Object
+
         
-        #region  Work on Object
-        
-        [BoxGroup("Work on Object")] public NoneStaticObj currentObjWorkOn; 
-        [BoxGroup("Work on Object")] public AnimCharBObjConfig animData;
-        
+
         public virtual void OnObjWorkEnter()
         {
-            Debug.Log("OnObjWorkEnter");
             if (!currentObjWorkOn)
             {
                 OnIdle();
                 return;
             }
+
             animData = AnimCharBObj.Instance.GetData(currentObjWorkOn.GetObjData().animWorkID);
             cAnimController.PlayAnim(AnimCharacterLayer.Idle, 0);
-            currentObjWorkOn.PlayAnim(animData);
+            currentObjWorkOn.OnWork(animData);
+           
             transform.DORotate(currentObjWorkOn.transform.eulerAngles, 1f);
             DOVirtual.DelayedCall(0.5f, () =>
             {
                 cAnimController.PlayAnim(animData.cLayer, animData.animID);
+                ChangeCharState(CharState.Work);
+                timeAnimSetting = cAnimController.GetCurrentTimeAnimation();
             });
             
-            timeAnimSetting = cAnimController.GetCurrentTimeAnimation();
             timeAnim = 0;
         }
 
@@ -136,7 +169,7 @@ namespace _Game.Scripts.Character
                 timeAnim += Time.deltaTime;
             else
             {
-                cAnimController.PlayAnim(animData.cLayer, Random.Range(0, 2));
+                cAnimController.PlayAnim(animData.cLayer, GetAnimId(animData.cLayer, charState));
                 timeAnimSetting = cAnimController.GetCurrentTimeAnimation();
                 timeAnim = 0f;
             }
@@ -144,27 +177,26 @@ namespace _Game.Scripts.Character
 
         public virtual void OnObjWorkExit()
         {
+            currentObjWorkOn.OutWork();
             currentObjWorkOn = null;
         }
 
         #endregion
-
-        private bool CheckMoveDone()
-        {
-            if (!cAgent.enabled) return false;
-            return cAgent.remainingDistance <= cAgent.stoppingDistance;
-        }
         
-        private void SetActionCallback(UnityAction callback)
+        private void ChangeCharState(CharState newState)
         {
-            actionMoveCallback = callback;
+            charState = newState;
+            animLoopMax =
+                AnimationTimeLineGlobalConfig.Instance.GetAnimLoopMax(cAnimController.currentAnimLayer, charState);
         }
 
-        [Button]
-        public void MoveToObjAndWork(NoneStaticObj obj)
+        private int GetAnimId(AnimCharacterLayer layer, CharState state)
         {
-            currentObjWorkOn = obj;
-            MoveTarget(currentObjWorkOn.trsPointCharStand, OnObjWork);
+            animLoopCount++;
+            var isOtherBase = animLoopCount > animLoopMax;
+            animLoopCount = animLoopCount > animLoopMax ? 0 : animLoopCount;
+            Debug.Log("Get other");
+            return AnimationTimeLineGlobalConfig.Instance.GetAnimID(layer, state, isOtherBase);
         }
 
         private void OnObjWork()
@@ -172,107 +204,18 @@ namespace _Game.Scripts.Character
             timeAnim = 0;
             ChangeState(CharWorkOnObjState.Instance);
         }
-
-        private void MoveTarget(Transform target, UnityAction actionCallBack)
-        {
-            cTarget = target;
-            if (actionCallBack != null)
-                SetActionCallback(actionCallBack);
-            ChangeState(CharMoveState.Instance);
-        }
-
+        
         private void OnIdle()
         {
             timeAnim = 0;
             ChangeState(CharIdleState.Instance);
         }
-    
-    }
-    
-    public class CharIdleState : State<Character>
-    {
-        private static CharIdleState mInstance;
-        public static CharIdleState Instance
-        {
-            get
-            {
-                if (mInstance == null)
-                    mInstance = new CharIdleState();
-                return mInstance;
-            }
-        }
 
-        public override void Enter(Character go)
+        [Button]
+        public void Relax()
         {
-            go.CharIdleEnter();
-        }
-
-        public override void Execute(Character go)
-        {
-            go.CharIdleExecute();
-        }
-
-        public override void Exit(Character go)
-        {
-            go.CharIdleEnd();
-        }
-    }
-
-    public class CharMoveState : State<Character>
-    {
-        private static CharMoveState mInstance;
-        public static CharMoveState Instance
-        {
-            get
-            {
-                if (mInstance == null)
-                    mInstance = new CharMoveState();
-                return mInstance;
-            }
-        }
-
-        public override void Enter(Character go)
-        {
-            go.CharMoveEnter();
-        }
-
-        public override void Execute(Character go)
-        {
-            go.CharMoveExecute();
-        }
-
-        public override void Exit(Character go)
-        {
-            go.CharMoveEnd();
-        }
-    }
-    
-    public class CharWorkOnObjState : State<Character>
-    {
-        private static CharWorkOnObjState mInstance;
-        public static CharWorkOnObjState Instance
-        {
-            get
-            {
-                if (mInstance == null)
-                    mInstance = new CharWorkOnObjState();
-                return mInstance;
-            }
-        }
-
-        public override void Enter(Character go)
-        {
-            go.OnObjWorkEnter();
-        }
-
-        public override void Execute(Character go)
-        {
-            go.OnObjWorkExecute();
-        }
-
-        public override void Exit(Character go)
-        {
-            go.OnObjWorkExit();
+            ChangeCharState(CharState.Relax);
+            OnIdle();
         }
     }
 }

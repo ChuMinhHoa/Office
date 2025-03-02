@@ -29,7 +29,7 @@ public class test : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target.position);
         if (distance > agent.stoppingDistance)
         {
-            characterAnimController.PlayAnim(AnimCharacterLayer.Move, 0, CallBack);
+            //characterAnimController.PlayAnim(AnimCharacterLayer.Move, 0, CallBack);
             agent.SetDestination(target.position);
         }
         else

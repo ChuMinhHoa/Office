@@ -1,4 +1,5 @@
 using _Game.Scripts.Etc;
+using _Game.Scripts.ScriptableObject;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace _Game.Scripts.AnimationController
     {
         public TAnimLayer currentAnimLayer;
         [HideInInspector]public int currentLayerIndex;
+        [HideInInspector]public int preLayerIndex;
         public int currentAnimIndex;
         [SerializeField] private Animator animator;
         private Sequence _mySequence;
@@ -20,18 +22,26 @@ namespace _Game.Scripts.AnimationController
         {
             if (currentAnimIndex == animIndex && currentLayerIndex.Equals(layer))
                 return;
-            animator.SetInteger(MyCache.StrAnimIndex, animIndex);
-            SetAnimWeight(layer);
+            if (!layer.Equals(currentAnimLayer))
+            {
+                preLayerIndex = currentLayerIndex;
+                Debug.Log($"Last layer index {preLayerIndex}");
+                animator.SetInteger(MyCache.StrAnimIndex[preLayerIndex], -1);
+            }
+            currentAnimLayer = layer;
+            animator.SetInteger(MyCache.StrAnimIndex[GetLayerIndex()], animIndex);
+            SetAnimWeight();
             currentAnimIndex = animIndex;
             
         }
 
-        public void SetAnimWeight(TAnimLayer layer)
+        private void SetAnimWeight()
         {
-            currentAnimLayer = layer;
             currentLayerIndex = GetLayerIndex();
+            
             _mySequence?.Kill();
             _mySequence = DOTween.Sequence();
+           
             _mySequence.Append(
                 DOVirtual.Float(animator.GetLayerWeight(currentLayerIndex), 1f, 0.5f,
                     value => { animator.SetLayerWeight(currentLayerIndex, value); })
@@ -48,23 +58,25 @@ namespace _Game.Scripts.AnimationController
             }
 
             _mySequence.Play();
-            _mySequence.OnComplete(() =>
-            {
-                _actionCallBack?.Invoke();
-                _actionCallBack = null;
-                animator.SetInteger(MyCache.StrAnimIndex, -1);
-            });
+            _mySequence.OnComplete(CallActionCallBack);
 
         }
 
-        public void PlayAnim(TAnimLayer layer, int animIndex, UnityAction callBack)
+        private void CallActionCallBack()
         {
-            currentAnimLayer = layer;
-            _actionCallBack = callBack;
-            SetAnimWeight(layer);
-            currentAnimIndex = animIndex;
-            animator.SetInteger(MyCache.StrAnimIndex, animIndex);
+            _actionCallBack?.Invoke();
+            _actionCallBack = null;
+            animator.SetInteger(MyCache.StrAnimIndex[currentLayerIndex], -1);
         }
+
+        // public void PlayAnim(TAnimLayer layer, int animIndex, UnityAction callBack)
+        // {
+        //     currentAnimLayer = layer;
+        //     _actionCallBack = callBack;
+        //     SetAnimWeight();
+        //     currentAnimIndex = animIndex;
+        //     animator.SetInteger(MyCache.StrAnimIndex[GetLayerIndex()], animIndex);
+        // }
 
         public virtual int GetLayerIndex()
         {

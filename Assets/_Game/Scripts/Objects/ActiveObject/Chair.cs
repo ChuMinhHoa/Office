@@ -2,12 +2,12 @@ namespace _Game.Scripts.Objects.ActiveObject
 {
     public class Chair : NoneStaticObj
     {
-        private OpenInteractObj openInteractObj;
+        private ShitDownInteractObj _shitDownInteractObj;
 
         public override void InitInteract()
         {
-            openInteractObj = new OpenInteractObj();
-            InteractActions.Add(InteractType.Open, openInteractObj.OnInteract);
+            _shitDownInteractObj = new ShitDownInteractObj();
+            InteractActions.Add(InteractType.Open, _shitDownInteractObj.OnInteract);
         }
     }
 }
